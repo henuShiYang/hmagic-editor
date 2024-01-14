@@ -1,4 +1,4 @@
-import { fileURLToPath, URL } from 'node:url'
+import path from 'path'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -6,13 +6,16 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-  ],
+  plugins: [vue(), vueJsx()],
   resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
+    alias: [
+      { find: /^@HMagic\/editor/, replacement: path.join(__dirname, './src') },
+      { find: /^@editor/, replacement: path.join(__dirname, './src') },
+      { find: /^@tmagic\/schema/, replacement: path.join(__dirname, '../schema/src/index.ts') },
+      { find: /^@tmagic\/utils/, replacement: path.join(__dirname, '../utils/src/index.ts') },
+      { find: /^@tmagic\/core/, replacement: path.join(__dirname, '../core/src/index.ts') },
+      { find: /^@tmagic\/form/, replacement: path.join(__dirname, '../form/src/index.ts') },
+      { find: /^@tmagic\/stage/, replacement: path.join(__dirname, '../stage/src/index.ts') }
+    ]
   }
 })
